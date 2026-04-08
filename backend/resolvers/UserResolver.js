@@ -3,6 +3,12 @@ import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+const newUser = new User({ 
+    username, 
+    email, 
+    password: hashedPassword
+});
+
 const userResolvers = {
     Query: {
         login: async (_, { username, password }) => {
@@ -34,16 +40,22 @@ const userResolvers = {
 
     Mutation: {
         signup: async (_, { username, email, password }) => {
-            const existingUser = await User.findOne({
-                $or: [{ email }, { username }]
-            });
-
+            const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+                
             if (existingUser) {
                 throw new GraphQLError('Error: user already exists');
             }
 
-            const newUser = new User({ username, email, password });
-            
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            const newUser = new User({ 
+                username, 
+                email, 
+                password: hashedPassword
+            });
+
+ 
             return await newUser.save();
         }
     }
