@@ -31,6 +31,9 @@ export class Login {
   }
 
   onSubmit(){
+
+    console.log("Button clicked!");
+
     if( this.loginForm.valid ){
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {

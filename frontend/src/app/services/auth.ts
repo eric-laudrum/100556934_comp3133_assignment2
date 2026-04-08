@@ -22,6 +22,19 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+const GET_EMPLOYEES = gql`
+  query GetEmployees {
+    getEmployees {
+      id
+      first_name
+      last_name
+      email
+      department
+      designation
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -40,10 +53,23 @@ export class Auth {
     );
   }
 
+  
   signup(userVars: any) {
     return this.apollo.mutate<any>({
       mutation: SIGNUP_MUTATION,
       variables: userVars
     }).pipe(map(result => result.data.signup));
   }
+
+
+  getEmployees() {
+    return this.apollo.watchQuery<any>({
+      query: GET_EMPLOYEES,
+      fetchPolicy: 'network-only'
+    }).valueChanges.pipe(
+      map(result => result.data.getEmployees)
+    );
+  }
+
+
 }

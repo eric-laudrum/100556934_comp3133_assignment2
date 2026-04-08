@@ -12,7 +12,10 @@ const newUser = new User({
 const userResolvers = {
     Query: {
         login: async (_, { username, password }) => {
-            const user = await User.findOne({ username });
+
+            const user = await User.findOne({
+                $or: [{ username: username }, { email: username }]
+            });
 
             if (!user) {
                 throw new GraphQLError('Error: user not found');
