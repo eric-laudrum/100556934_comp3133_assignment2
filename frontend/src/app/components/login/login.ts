@@ -32,6 +32,7 @@ export class Login {
 
   onSubmit(){
 
+    alert("Attempting to log in...");
     console.log("Button clicked!");
 
     if( this.loginForm.valid ){
