@@ -12,19 +12,38 @@ const LOGIN_QUERY = gql`
     }
 `;
 
+const SIGNUP_MUTATION = gql`
+  mutation Signup($username: String!, $email: String!, $password: String!) {
+    signup(username: $username, email: $email, password: $password) {
+      id
+      username
+      email
+    }
+  }
+`;
 
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class Auth {
   constructor(private apollo: Apollo){}
 
   login( credentials: any ){
     return this.apollo.query<any>({
       query: LOGIN_QUERY,
-      variables: credentials
+      variables: credentials,
+      fetchPolicy: 'no-cache'
     }).pipe(
       map(result => result.data.login)
     );
+  }
+
+  signup(userVars: any) {
+    return this.apollo.mutate<any>({
+      mutation: SIGNUP_MUTATION,
+      variables: userVars
+    }).pipe(map(result => result.data.signup));
   }
 }

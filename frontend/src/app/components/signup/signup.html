@@ -1,1 +1,53 @@
-<p>signup works!</p>
+<div class="signup-container">
+
+
+    <h2>Create Account</h2>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>Username:</label>
+            <input type="text" formControlName="username">
+
+            <small *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
+                Please enter a username
+            </small>
+
+        </div>
+
+        <br>
+
+        <div>
+            <label>Email:</label>
+
+            <input type="email" formControlName="email">
+
+            <small *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+                Please enter a valid email address
+            </small>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Password:</label>
+            <input type="password" formControlName="password">
+            
+            <small *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+                Password must be 6+ characters.
+            </small>
+        </div>
+
+        <br>
+
+        <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+
+        <p>
+            Already have an account? <a routerLink="/login">Login here</a>
+        </p>
+    </form>
+</div>
