@@ -35,6 +35,33 @@ const GET_EMPLOYEES = gql`
   }
 `;
 
+const ADD_EMPLOYEE = gql`
+  mutation AddEmployee(
+    $first_name: String!, 
+    $last_name: String!, 
+    $email: String!, 
+    $position: String!, 
+    $salary: Float!, 
+    $date_of_joining: String!, 
+    $department: String!,
+
+    $employee_photo: String) {
+      addEmployee(
+      first_name: $first_name, 
+      last_name: $last_name, 
+      email: $email, 
+      position: $position, 
+      salary: $salary, 
+      date_of_joining: $date_of_joining, 
+      department: $department, 
+
+      employee_photo: $employee_photo) {
+        id
+        first_name
+      }
+    }
+  `;
+
 const DELETE_EMPLOYEE = gql`
   mutation DeleteEmployee($id: ID!){
     deleteEmployee(id: $id)
@@ -93,10 +120,30 @@ export class Auth {
     );
   }
 
-    deleteEmployee(id: string) {
+  addEmployee(employeeData: any) {
+  return this.apollo.mutate({
+    mutation: ADD_EMPLOYEE,
+    variables: employeeData,
+    refetchQueries: [{ query: GET_EMPLOYEES }]
+  });
+}
+
+
+
+  deleteEmployee(id: string) {
     return this.apollo.mutate({
       mutation: DELETE_EMPLOYEE,
       variables: { id }
     });
   }
+
+  searchEmployees(dept?: string, pos?: string) {
+    return this.apollo.query<any>({
+      query: SEARCH_EMPLOYEES,
+      variables: { department: dept, position: pos }
+    }).pipe(
+      map(result => result.data.searchEmployees)
+    );
+  }
+
 }
