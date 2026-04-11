@@ -30,10 +30,32 @@ const GET_EMPLOYEES = gql`
       last_name
       email
       department
-      designation
+      position
     }
   }
 `;
+
+const DELETE_EMPLOYEE = gql`
+  mutation DeleteEmployee($id: ID!){
+    deleteEmployee(id: $id)
+  }
+`;
+
+const SEARCH_EMPLOYEES = gql`
+  query SearchEmployees($department: String, $position: String){
+    searchEmployees(department: $department, position: $position){
+      id
+      first_name
+      last_name
+      department
+      position
+    }
+  }
+`;
+
+
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +93,10 @@ export class Auth {
     );
   }
 
-
+    deleteEmployee(id: string) {
+    return this.apollo.mutate({
+      mutation: DELETE_EMPLOYEE,
+      variables: { id }
+    });
+  }
 }
