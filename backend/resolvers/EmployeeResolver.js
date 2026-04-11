@@ -22,8 +22,13 @@ export const employeeResolvers = {
         if (!context.user) throw new GraphQLError("Not Authorized");
 
         try {
-            const imageString = args.employee_photo.replace(/^data:image\/\w+;base64,/, "");
-            const uploadResponse = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageString}`, {});
+            let imageUrl = "";
+
+            if (args.employee_photo) {
+                const imageString = args.employee_photo.replace(/^data:image\/\w+;base64,/, "");
+                const uploadResponse = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageString}`, {} );
+                profileImageUrl = uploadResponse.secure_url;
+            }
 
             if (args.salary < 1000) {
                 throw new GraphQLError("Error: Salary must be a minimum $1000")
@@ -31,7 +36,7 @@ export const employeeResolvers = {
 
             const newEmp = new Employee({
                 ...args,
-                employee_photo: uploadResponse.secure_url
+                employee_photo: imageUrl
             });
 
             return await newEmp.save();
