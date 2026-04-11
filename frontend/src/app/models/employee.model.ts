@@ -4,8 +4,8 @@ export interface Employee{
     first_name: string;
     last_name: string;
     email: string;
-    gender: 'Male' | 'Female' | 'Other';
-    destination: string;
+
+    position: string;
     salary: number;
     date_of_joining: string;
     department: string;
