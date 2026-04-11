@@ -19,22 +19,22 @@
         </tr>
     </thead>
     <tbody>
-        @for (emp of employees; track emp.id) {
-        <tr>
-            <td>{{ emp.first_name }}</td>
-            <td>{{ emp.last_name }}</td>
-            <td>{{ emp.email }}</td>
-            <td>{{ emp.department }}</td>
-            <td>
-            <button class="form-btn" (click)="viewDetails(emp.id)">View</button>
-            <button class="form-btn" (click)="editEmployee(emp.id)">Edit</button>
-            <button class="form-btn" (click)="deleteEmployee(emp.id)">Delete</button>
-            </td>
-        </tr>
-    } @empty {
+        @for (emp of employees(); track emp._id) {
+            <tr>
+                <td>{{ emp.first_name }}</td>
+                <td>{{ emp.last_name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.department }}</td>
+                <td>
+                    <button class="form-btn" (click)="viewDetails(emp._id)">View</button>
+                    <button class="form-btn" (click)="editEmployee(emp._id)">Edit</button>
+                    <button class="form-btn" (click)="deleteEmployee(emp._id)">Delete</button>
+                </td>
+            </tr>
+         } @empty {
 
         <tr>
-            <td colspan="5" class="text-center">No employees found.</td>
+            <td colspan="5">No employees found.</td>
         </tr>
 
     }
