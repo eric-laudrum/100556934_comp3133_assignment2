@@ -9,7 +9,7 @@ import { Auth } from '../../services/auth';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink ],
+  imports: [CommonModule, ReactiveFormsModule ],
   templateUrl: './auth-login.html',
   styleUrl: './login.css',
 })

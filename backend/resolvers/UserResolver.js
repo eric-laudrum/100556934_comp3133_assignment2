@@ -3,12 +3,6 @@ import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const newUser = new User({ 
-    username, 
-    email, 
-    password: hashedPassword
-});
-
 const userResolvers = {
     Query: {
         login: async (_, { username, password }) => {
