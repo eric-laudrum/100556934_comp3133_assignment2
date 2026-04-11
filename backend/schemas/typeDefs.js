@@ -17,8 +17,7 @@ export const typeDefs = `#graphql
         first_name: String!
         last_name: String!
         email: String!
-        gender: String!
-        designation: String!
+        position: String!
         salary: Float!
         date_of_joining: String!
         department: String!
@@ -47,8 +46,7 @@ export const typeDefs = `#graphql
             first_name: String!,
             last_name: String!,
             email: String!,
-            gender: String!,
-            designation: String!,
+            position: String!,
             salary: Float!,
             date_of_joining: String!,
             department: String!,
@@ -58,7 +56,7 @@ export const typeDefs = `#graphql
         updateEmployeeById(
             eid: ID!, 
             salary: Float,
-            designation: String
+            position: String
         ): Employee
 
         deleteEmployeeById(

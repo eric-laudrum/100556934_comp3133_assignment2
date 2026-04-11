@@ -18,12 +18,8 @@ const EmployeeSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"]
     },
-    gender: { 
-        type: String, 
-        enum: ['Male', 'Female', 'Other'],
-        required: true 
-    },
-    designation: { 
+
+    position: { 
         type: String, 
         required: true 
     },

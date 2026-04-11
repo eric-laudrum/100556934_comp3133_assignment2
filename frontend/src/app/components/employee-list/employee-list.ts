@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Auth } from '../../services/auth';
+import { AuthService } from '../../services/auth';
+import { Employee } from '../../models/employee.model';
 
 
 @Component({
@@ -13,14 +14,12 @@ import { Auth } from '../../services/auth';
 
 
 export class EmployeeList implements OnInit{
-  employees: any[] = [];
+  employees: Employee[] = [];
   errorMsg: string = "";
 
 
 
-  constructor( private authService: Auth, private router: Router){
-
-  }
+  constructor( private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {
       this.loadEmployees();
@@ -40,7 +39,37 @@ export class EmployeeList implements OnInit{
         console.error(err);
       }
     });
-}
+  }
+
+
+
+  navigateToAdd() {
+    this.router.navigate(['/employees/add']);
+  }
+
+  viewDetails(id: string) {
+    this.router.navigate(['/employees/details', id]);
+  }
+
+  editEmployee(id: string) {
+    this.router.navigate(['/employees/edit', id]);
+  }
+
+  deleteEmployee(id: string) {
+    if (confirm("Are you sure you want to delete this employee?")) {
+      this.authService.deleteEmployee(id).subscribe({
+        next: () => {
+          // Refresh the list after deletion
+          this.employees = this.employees.filter(e => e.id !== id);
+        },
+        error: (err) => {
+          this.errorMsg = "Could not delete employee.";
+        }
+      });
+    }
+  }
+
+
 
 
 

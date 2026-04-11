@@ -1,1 +1,20 @@
-<p>employee-add works!</p>
+<div class="form-container">
+
+    <h2>Add New Employee</h2>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div>
+            <div>
+                <label for="first_name">First Name: </label>
+                <input id="first_name" type="text" formControlName="first_name" placeholder="first name"/>
+
+                @if (employeeForm.get('first_name')?.invalid && employeeForm.get('first_name')?.touched) {
+
+                    <small class="error">First name is required.</small>
+
+                    
+        }
+            </div>
+        </div>
+    </form>
+</div>

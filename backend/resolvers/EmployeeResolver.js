@@ -40,12 +40,12 @@ export const employeeResolvers = {
         }
     },
 
-    updateEmployeeById: async (_, { eid, salary, designation }, context) => {
+    updateEmployeeById: async (_, { eid, salary, position }, context) => {
         if (!context.user) throw new GraphQLError("Not Authorized");
         
         const updatedEmployee = await Employee.findByIdAndUpdate(
             eid,
-            { $set: { salary, designation } },
+            { $set: { salary, position } },
             { new: true, runValidators: true }
         );
 

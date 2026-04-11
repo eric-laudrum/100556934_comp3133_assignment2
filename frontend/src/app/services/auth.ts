@@ -89,7 +89,7 @@ const SEARCH_EMPLOYEES = gql`
 })
 
 
-export class Auth {
+export class AuthService {
   constructor(private apollo: Apollo){}
 
   login( credentials: any ){

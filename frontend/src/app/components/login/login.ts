@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Auth } from '../../services/auth';
+import { AuthService } from '../../services/auth';
+import { AuthResponse } from '../../models/employee.model'
 
 
 
@@ -21,7 +22,7 @@ export class Login {
 
   constructor(
     private fb: FormBuilder,
-    private authService: Auth,
+    private authService: AuthService,
     private router: Router
   ){
     this.loginForm = this.fb.group({
@@ -37,7 +38,7 @@ export class Login {
 
     if( this.loginForm.valid ){
       this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
+        next: (response: AuthResponse) => {
           if( response.status ){
             localStorage.setItem('token', response.token);
             this.router.navigate(['/employees']);
@@ -46,7 +47,7 @@ export class Login {
             this.errorMessage = response.message;
           }
         },
-        error: (err) =>{
+        error: (err: any) =>{
           this.errorMessage = "Login failed. Check connection";
           console.error(err);
         }
