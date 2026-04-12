@@ -16,6 +16,11 @@
     margin-bottom: 20px;
 }
 
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
 .add-btn, .form-btn {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 10px 15px;
@@ -84,8 +89,22 @@ td:last-child {
 }
 
 .form-btn:last-child:hover {
-    background-color: #dc3545;
+    background-color: rgba(255, 0, 0, 0.5);
     color: white;
+}
+
+.logout-btn {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 

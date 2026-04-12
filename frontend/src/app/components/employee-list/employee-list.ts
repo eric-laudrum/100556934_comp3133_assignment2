@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { Employee } from '../../models/employee.model';
+import { ChangeDetectorRef } from '@angular/core';
+import { signal } from '@angular/core';
 
 
 @Component({
@@ -14,30 +16,19 @@ import { Employee } from '../../models/employee.model';
 
 
 export class EmployeeList implements OnInit{
-  employees: Employee[] = [];
+  employees = signal<any[]>([]);
   errorMsg: string = "";
 
-
-
-  constructor( private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-      this.loadEmployees();
+    this.loadEmployees();
   }
 
   loadEmployees() {
-
     this.authService.getEmployees().subscribe({
-
-      next: (data: any[]) => {
-        this.employees = data;
-        console.log("Employees loaded:", this.employees);
-      }, 
-      
-      error: (err) => {
-        this.errorMsg = "Error. Failed to load employees";
-        console.error(err);
-      }
+      next: (data) => this.employees.set(data),
+      error: (err) => this.errorMsg = "Failed to load employees."
     });
   }
 
@@ -56,17 +47,17 @@ export class EmployeeList implements OnInit{
   }
 
   deleteEmployee(id: string) {
-    if (confirm("Are you sure you want to delete this employee?")) {
+    if (confirm("Are you sure?")) {
       this.authService.deleteEmployee(id).subscribe({
-        next: () => {
-          // Refresh the list after deletion
-          this.employees = this.employees.filter(e => e.id !== id);
-        },
-        error: (err) => {
-          this.errorMsg = "Could not delete employee.";
-        }
+        next: () => this.employees.update(prev => prev.filter(e => e._id !== id)),
+        error: () => this.errorMsg = "Could not delete employee."
       });
     }
+  }
+
+  logout(): void {
+    localStorage.removeItem('token'); 
+    this.router.navigate(['/login']);
   }
 
 

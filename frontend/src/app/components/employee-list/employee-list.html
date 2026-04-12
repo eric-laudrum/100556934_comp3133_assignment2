@@ -1,10 +1,13 @@
 <!-- Employee List -->
 
-<div>
-    <div>
+<div class="list-container">
+    <div class="header-section">
         <h2>Employee Management</h2>
 
-        <button class="add-btn" (click)="navigateToAdd()">+Add Employee</button>
+        <div class="header-actions">
+            <button class="add-btn" (click)="navigateToAdd()">+ Add Employee</button>
+            <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
     </div>
     
 
@@ -34,7 +37,8 @@
          } @empty {
 
         <tr>
-            <td colspan="5">No employees found.</td>
+            <td colspan="5"
+            >No employees found.</td>
         </tr>
 
     }
