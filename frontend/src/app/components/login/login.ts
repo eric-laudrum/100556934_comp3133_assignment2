@@ -10,7 +10,7 @@ import { AuthResponse } from '../../models/employee.model'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink ],
   templateUrl: './auth-login.html',
   styleUrl: './login.css',
 })
@@ -37,7 +37,13 @@ export class Login {
     console.log("Button clicked!");
 
     if( this.loginForm.valid ){
-      this.authService.login(this.loginForm.value).subscribe({
+
+      const payload = {
+            username: this.loginForm.value.username.trim(),
+            password: this.loginForm.value.password
+        };
+
+      this.authService.login(payload).subscribe({
         next: (response: AuthResponse) => {
           if( response.status ){
             localStorage.setItem('token', response.token);
