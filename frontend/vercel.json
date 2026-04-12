@@ -3,10 +3,10 @@
   "rewrites": [
     { 
       "source": "/api/(.*)", 
-      "destination": "backend/server.js" 
+      "destination": "/backend/server.js" 
     },
     { 
         "source": "/(.*)", 
-        "destination": "dist/100556934_comp3133_assignment2/browser/index.html" }
+        "destination": "/dist/100556934_comp3133_assignment2/browser/index.html" }
   ]
 }
