@@ -1,0 +1,98 @@
+
+.list-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px 50px;
+    border: 4px solid rgba(0, 0, 0, 0.035);
+    border-radius: 8px;
+    margin-top: 0;
+}
+
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-btn, .form-btn {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.add-btn {
+    background-color: #218838;
+    color: white;
+}
+
+.add-btn:hover {
+    background-color: #1e7e34;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+tbody tr {
+    background-color: rgba(173, 216, 230, 0.159);
+    transition: transform 0.1s;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.056);
+}
+
+td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+
+.form-btn {
+    margin-right: 5px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.form-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.form-btn:last-child:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+.empty-row td {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-style: italic;
+    background: transparent;
+}
