@@ -6,8 +6,7 @@
       "destination": "backend/server.js" 
     },
     { 
-      "source": "/(.*)", 
-      "destination": "frontend/dist/browser/index.html" 
-    }
+        "source": "/(.*)", 
+        "destination": "frontend/dist/100556934_comp3133_assignment2/browser/index.html" }
   ]
 }
