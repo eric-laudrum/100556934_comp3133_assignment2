@@ -32,7 +32,7 @@ export class SignUp {
     if (this.signupForm.valid) {
       this.authService.signup(this.signupForm.value).subscribe({
         next: (user) => {
-          if (user && user.id) {
+          if (user && user._id) {
             alert("Signup successful! Please login.");
             this.router.navigate(['/login']);
           }

@@ -3,10 +3,6 @@
 
     <h2>Create Account</h2>
 
-    <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-    </div>
-
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div>
@@ -47,7 +43,7 @@
         <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
 
         <p>
-            Already have an account? <a routerLink="/login">Login here</a>
+            Already have an account? Sign in  <a routerLink="/login">here</a>
         </p>
     </form>
 </div>
