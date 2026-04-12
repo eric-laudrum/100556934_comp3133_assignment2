@@ -26,6 +26,8 @@ const resolvers = {
     }
 };
 
+
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -39,17 +41,20 @@ const { url } = await startStandaloneServer(server, {
     },
     
     context: async ({ req }) => {
+
         const auth = req.headers.authorization || '';
-        if (auth) {
+
+        if (auth.startsWith('Bearer ')){
             try {
                 const token = auth.replace('Bearer ', '');
-                const user = jwt.verify(token, process.env.JWT_SECRET);
+                const user = jwt.verify(token, process.env.JWT_SECRET || 'secret_fallback');
                 return { user };
             } catch (e) {
-                return {}; 
+                console.error("JWT Verification failed:", e.message);
+                return {user: null}; 
             }
         }
-        return {};
+        return { user: null};
     },
 });
 

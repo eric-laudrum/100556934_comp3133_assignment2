@@ -24,10 +24,11 @@ export const employeeResolvers = {
         try {
             let imageUrl = "";
 
-            if (args.employee_photo) {
+            if (args.employee_photo && args.employee_photo.trim() !== "") {
+
                 const imageString = args.employee_photo.replace(/^data:image\/\w+;base64,/, "");
-                const uploadResponse = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageString}`, {} );
-                profileImageUrl = uploadResponse.secure_url;
+                const uploadResponse = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageString}`, {});
+                imageUrl = uploadResponse.secure_url;
             }
 
             if (args.salary < 1000) {
@@ -45,12 +46,12 @@ export const employeeResolvers = {
         }
     },
 
-    updateEmployeeById: async (_, { eid, salary, position }, context) => {
+    updateEmployeeById: async (_, { eid, ...args }, context) => {
         if (!context.user) throw new GraphQLError("Not Authorized");
         
         const updatedEmployee = await Employee.findByIdAndUpdate(
             eid,
-            { $set: { salary, position } },
+            { $set: args },
             { new: true, runValidators: true }
         );
 
