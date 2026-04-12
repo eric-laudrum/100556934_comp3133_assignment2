@@ -1,1 +1,50 @@
-<p>employee-details works!</p>
+<div class="details-container">
+
+    <h2>Employee Details</h2>
+
+    @if (employee) {
+    <div>
+        <div>
+            <img 
+            [src]="employee.employee_photo || 'assets/default-avatar.png'" 
+            alt="Profile Picture" 
+            class="profile-img"
+            >
+            <h3>{{ employee.first_name }} {{ employee.last_name }}</h3>
+            <p>{{ employee.position }}</p>
+        </div>
+
+        <hr>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Email:</strong> <span>{{ employee.email }}</span>
+            </div>
+
+            <div class="info-item">
+                <strong>Department:</strong> <span>{{ employee.department }}</span>
+            </div>
+
+            <div class="info-item">
+                <strong>Salary:</strong> <span>{{ employee.salary | currency }}</span>
+            </div>
+
+            <div class="info-item">
+                <strong>Date Added:</strong> <span>{{ employee.date_of_joining | date:'fullDate' }}</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="back-btn" (click)="goBack()">
+                &larr; Back to List
+            </button>
+
+            <button type="button" class="edit-btn" (click)="goToEdit()">
+                Edit Employee
+            </button>
+         </div>
+    </div>
+    } @else if (!errorMsg) {
+        <div class="loading-spinner">Loading employee information...</div>
+    }
+</div>
